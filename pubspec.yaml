@@ -39,7 +39,11 @@ dependencies:
   kakao_flutter_sdk: ^1.1.1
   kakao_flutter_sdk_user: ^1.1.1
   record: ^4.1.1
-  
+  flutter_hooks: any
+  table_calendar: any
+  intl: any
+  flutter_slidable: 0.5.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

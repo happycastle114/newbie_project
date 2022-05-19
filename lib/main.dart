@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+// import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import './widgets/login.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import './calendar.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: "dfa83a5ebbab2f42b327dcaa6523226b");
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: Login(),
+      home: CalendarWidget(),
     );
   }
 }
