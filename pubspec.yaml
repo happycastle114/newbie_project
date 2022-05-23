@@ -42,7 +42,9 @@ dependencies:
   flutter_hooks: any
   table_calendar: any
   intl: any
-  flutter_slidable: 0.5.5
+  flutter_slidable: ^1.3.0
+  audioplayers: any
+
 
 dev_dependencies:
   flutter_test:

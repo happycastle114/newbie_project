@@ -36,8 +36,12 @@ class CalendarWidget extends HookWidget {
           children: [
             TableCalendar(
               eventLoader: (day) {
-                if (day.day % 2 == 0) {
-                  return ['hi'];
+                for (Diary diary in diaries.value) {
+                  if (day.day == diary.date.day &&
+                      day.month == diary.date.month &&
+                      day.year == diary.date.year) {
+                    return ['Diaries available'];
+                  }
                 }
                 return [];
               }, // 이벤트에 따라 마커를 표시해주는 것 => 녹음이 된 파일이 있는 목록에서 보여주면 될 듯
@@ -58,7 +62,6 @@ class CalendarWidget extends HookWidget {
               headerStyle: const HeaderStyle(
                   formatButtonVisible: false, titleCentered: true),
             ),
-            playButton(initState: false, onText: '시작', offText: '중지'),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 100,

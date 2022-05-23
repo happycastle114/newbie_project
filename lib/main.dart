@@ -4,6 +4,7 @@ import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import './widgets/login.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import './calendar.dart';
+import './recordVoice.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: "dfa83a5ebbab2f42b327dcaa6523226b");
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: CalendarWidget(),
+      home: RecordVoice(),
     );
   }
 }
