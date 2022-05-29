@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -5,6 +7,7 @@ class playButton extends HookWidget {
   final bool initState;
   final String onText;
   final String offText;
+  // final Function() onPressed;
 
   const playButton(
       {required this.initState,
@@ -21,7 +24,7 @@ class playButton extends HookWidget {
       onPressed: () {
         _isRecording.value = !_isRecording.value;
       },
-      child: Text(_isRecording.value ? offText : onText),
+      child: Text(_isRecording.value ? onText : offText),
     );
   }
 }

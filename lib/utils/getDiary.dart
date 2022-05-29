@@ -28,17 +28,9 @@ Future<List<Diary>> getDiary(String userId) async {
 
 Future<void> addDiary(String userId, Diary diary) {
   return getDiary(userId).then((value) {
-    print(value.map((d) => d.toMap().toString()));
-    print(diary.toMap().toString());
     value.add(diary);
-    List<Map<String, dynamic>> map_diaries = [];
-
-    value.forEach((Diary diary) {
-      map_diaries.add(diary.toMap());
-    });
-    print(map_diaries.toString());
     FirebaseFirestore.instance.collection('user').doc(userId).set({
-      'diaries': map_diaries,
+      'diaries': value.map((Diary diary) => diary.toMap()).toList(),
     });
   });
 }
@@ -46,10 +38,8 @@ Future<void> addDiary(String userId, Diary diary) {
 Future<void> removeDiary(String userId, Diary diary) {
   return getDiary(userId).then((value) {
     value.remove(diary);
-    List<Map<String, dynamic>> map_diaries = [];
-    value.map((diary) => map_diaries.add(diary.toMap()));
     FirebaseFirestore.instance.collection('user').doc(userId).set({
-      'diaries': map_diaries,
+      'diaries': value.map((Diary diary) => diary.toMap()).toList(),
     });
   });
 }

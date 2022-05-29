@@ -10,6 +10,7 @@ import 'package:audioplayers/web/audioplayers_web.dart';
 import 'package:cloud_firestore_web/cloud_firestore_web.dart';
 import 'package:firebase_core_web/firebase_core_web.dart';
 import 'package:firebase_storage_web/firebase_storage_web.dart';
+import 'package:flutter_secure_storage_web/flutter_secure_storage_web.dart';
 import 'package:fluttertoast/fluttertoast_web.dart';
 import 'package:package_info_plus_web/package_info_plus_web.dart';
 import 'package:record_web/record_web.dart';
@@ -23,6 +24,7 @@ void registerPlugins(Registrar registrar) {
   FirebaseFirestoreWeb.registerWith(registrar);
   FirebaseCoreWeb.registerWith(registrar);
   FirebaseStorageWeb.registerWith(registrar);
+  FlutterSecureStorageWeb.registerWith(registrar);
   FluttertoastWebPlugin.registerWith(registrar);
   PackageInfoPlugin.registerWith(registrar);
   RecordPluginWeb.registerWith(registrar);

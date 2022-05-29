@@ -31,8 +31,11 @@ class diaryCard extends StatelessWidget {
           builder: (context) => ListTile(
             onTap: () {},
             title: Text(diary.name),
-            trailing:
-                const playButton(initState: false, offText: '듣기', onText: '중단'),
+            trailing: const playButton(
+              initState: false,
+              offText: '듣기',
+              onText: '중단',
+            ),
           ),
         ));
   }

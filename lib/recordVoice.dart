@@ -12,8 +12,11 @@ import 'package:record/record.dart';
 class ScreenArguments {
   final String userId;
   final DateTime dateTime;
-
-  ScreenArguments({required this.userId, required this.dateTime});
+  final ValueNotifier<bool> isSuccessful;
+  ScreenArguments(
+      {required this.userId,
+      required this.dateTime,
+      required this.isSuccessful});
 }
 
 class RecordVoice extends HookWidget {
@@ -29,17 +32,23 @@ class RecordVoice extends HookWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     final args = ScreenArguments(
-        userId: arg['userId'] as String, dateTime: arg['dateTime'] as DateTime);
+        userId: arg['userId'] as String,
+        dateTime: arg['dateTime'] as DateTime,
+        isSuccessful: arg['isSuccessful'] as ValueNotifier<bool>);
 
     final isRecord = useState(false);
     final isPlay = useState(PlayerState.STOPPED);
-    final AudioPlayer audioPlayer = AudioPlayer();
+    final audioPlayer = useState(AudioPlayer());
     final AudioPath = useState('');
+    useEffect(() {
+      // audioPlayer.value.onPlayerStateChanged.listen((PlayerState s) {
+      //   isPlay.value = s;
+      //   print('$s');
+      // });
 
-    audioPlayer.onPlayerStateChanged
-        .listen((PlayerState s) => {isPlay.value = s, print('$s')});
-
-    audioPlayer.onPlayerCompletion.listen((event) => {print("오디오 플레이 완료")});
+      audioPlayer.value.onPlayerCompletion
+          .listen((event) => {print("오디오 플레이 완료")});
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -85,21 +94,15 @@ class RecordVoice extends HookWidget {
               onPressed: () async {
                 late int result;
                 if (isPlay.value == PlayerState.PLAYING) {
-                  result = await audioPlayer.release();
+                  await audioPlayer.value.stop();
                   print("오디오 플레이 종료");
-                  print(result);
-                  print('$isPlay.value');
+                  isPlay.value = PlayerState.STOPPED;
                 } else {
-                  await audioPlayer.play(AudioPath.value);
+                  await audioPlayer.value.play(AudioPath.value);
+                  isPlay.value = PlayerState.PLAYING;
                 }
               },
             ),
-            // TODO : 음성 파일 정지 오류 해결
-            ElevatedButton(
-                onPressed: () async {
-                  await audioPlayer.release();
-                },
-                child: const Text("중단")),
             ElevatedButton(
                 onPressed: () async {
                   if (TitleTextController.text == '' || AudioPath.value == '') {
@@ -116,6 +119,7 @@ class RecordVoice extends HookWidget {
                             fileName: await UploadFile(
                                 File(AudioPath.value.split("file://")[1]))));
                     Fluttertoast.showToast(msg: "성공적으로 추가하였습니다.");
+                    args.isSuccessful.value = true;
 
                     Navigator.pop(context);
                   }

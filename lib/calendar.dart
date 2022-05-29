@@ -5,6 +5,7 @@ import 'package:newbie_project/utils/getDiary.dart';
 import 'package:newbie_project/widgets/diaryCard.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './widgets/playButton.dart';
+import 'package:newbie_project/extensions/ListExtension.dart';
 
 class ScreenArguments {
   final String userId;
@@ -37,21 +38,27 @@ class CalendarWidget extends HookWidget {
     final _focusedDay = useState(DateTime.now());
     final _selectedDay = useState(DateTime.now());
 
+    final _isSuccessful = useState(false);
+
     final diaries = useState<List<Diary>>([
       Diary(id: '1', name: '제목1', date: DateTime.now(), fileName: 'you.m4a')
     ]);
 
     useEffect(() {
+      if (_isSuccessful.value) {
+        _isSuccessful.value = false;
+      }
       getDiary(args.userId).then((value) => diaries.value = value);
       return;
-    }, []);
+    }, [_isSuccessful.value]);
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
             onPressed: () => {
                   Navigator.pushNamed(context, '/recordVoice', arguments: {
                     'userId': args.userId,
-                    'dateTime': _selectedDay.value
+                    'dateTime': _selectedDay.value,
+                    'isSuccessful': _isSuccessful
                   })
                 },
             tooltip: 'Add Diary',
@@ -90,7 +97,16 @@ class CalendarWidget extends HookWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 100,
-              child: _listBuilder(diaries.value),
+              child: _listBuilder(diaries.value
+                  .map((diary) {
+                    if (diary.date.day == _selectedDay.value.day &&
+                        diary.date.month == _selectedDay.value.month &&
+                        diary.date.year == _selectedDay.value.year) {
+                      return diary;
+                    }
+                  })
+                  .toList()
+                  .removeNulls()),
             )
           ],
         )));
