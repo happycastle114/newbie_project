@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newbie_project/models/diary.dart';
+import 'package:newbie_project/utils/UserId.dart';
 import 'package:newbie_project/utils/getDiary.dart';
+import 'package:newbie_project/widgets/BottomNavigator.dart';
 import 'package:newbie_project/widgets/diaryCard.dart';
 import 'package:table_calendar/table_calendar.dart';
 import './widgets/playButton.dart';
 import 'package:newbie_project/extensions/ListExtension.dart';
 
-class ScreenArguments {
-  final String userId;
-
-  ScreenArguments(this.userId);
-}
-
 class CalendarWidget extends HookWidget {
   const CalendarWidget({Key? key}) : super(key: key);
 
-  Widget _listBuilder(content) {
+  Widget _listBuilder(content, _isSuccessful) {
     return ListView.builder(
       itemCount: content.length,
       itemBuilder: (context, index) {
-        return diaryCard(diary: content[index], onDelete: () {});
+        return diaryCard(
+            diary: content[index],
+            onDelete: (Diary diary) {
+              removeDiary(UserId().userId as String, diary);
+              _isSuccessful.value = true;
+              Fluttertoast.showToast(msg: "성공적으로 삭제되었습니다");
+            });
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final arg =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final args = ScreenArguments(arg['userId'] as String);
-
-    if (arg['userId'] == null) {
+    if (UserId().userId == null) {
       Navigator.pop(context);
     }
 
@@ -40,15 +39,15 @@ class CalendarWidget extends HookWidget {
 
     final _isSuccessful = useState(false);
 
-    final diaries = useState<List<Diary>>([
-      Diary(id: '1', name: '제목1', date: DateTime.now(), fileName: 'you.m4a')
-    ]);
+    final diaries = useState<List<Diary>>([]);
 
     useEffect(() {
       if (_isSuccessful.value) {
         _isSuccessful.value = false;
       }
-      getDiary(args.userId).then((value) => diaries.value = value);
+      print("Refreshed");
+      getDiary(UserId().userId as String)
+          .then((value) => diaries.value = value);
       return;
     }, [_isSuccessful.value]);
 
@@ -56,7 +55,6 @@ class CalendarWidget extends HookWidget {
         floatingActionButton: FloatingActionButton(
             onPressed: () => {
                   Navigator.pushNamed(context, '/recordVoice', arguments: {
-                    'userId': args.userId,
                     'dateTime': _selectedDay.value,
                     'isSuccessful': _isSuccessful
                   })
@@ -97,16 +95,18 @@ class CalendarWidget extends HookWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 100,
-              child: _listBuilder(diaries.value
-                  .map((diary) {
-                    if (diary.date.day == _selectedDay.value.day &&
-                        diary.date.month == _selectedDay.value.month &&
-                        diary.date.year == _selectedDay.value.year) {
-                      return diary;
-                    }
-                  })
-                  .toList()
-                  .removeNulls()),
+              child: _listBuilder(
+                  diaries.value
+                      .map((diary) {
+                        if (diary.date.day == _selectedDay.value.day &&
+                            diary.date.month == _selectedDay.value.month &&
+                            diary.date.year == _selectedDay.value.year) {
+                          return diary;
+                        }
+                      })
+                      .toList()
+                      .removeNulls(),
+                  _isSuccessful),
             )
           ],
         )));

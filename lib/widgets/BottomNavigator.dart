@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatelessWidget {
-  final String userId;
-  BottomNavigator({required this.userId});
+  BottomNavigator();
 
   @override
   Widget build(BuildContext context) {
@@ -11,22 +10,26 @@ class BottomNavigator extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            title: Text('Calendar'),
+            label: '일기',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            title: Text('Diary'),
+            label: '게시판',
           )
         ],
         onTap: (index) {
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/calendar',
-                  arguments: {'userId': userId});
+              Navigator.popAndPushNamed(
+                context,
+                '/calendar',
+              );
               break;
             case 1:
-              Navigator.pushNamed(context, '/diary',
-                  arguments: {'userId': userId});
+              Navigator.popAndPushNamed(
+                context,
+                '/board',
+              );
               break;
           }
         });

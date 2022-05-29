@@ -23,7 +23,7 @@ class diaryCard extends StatelessWidget {
               label: '삭제',
               backgroundColor: Colors.red,
               icon: Icons.delete,
-              onPressed: (context) => onDelete(diary.id),
+              onPressed: (context) => onDelete(diary),
             )
           ],
         ),
@@ -31,10 +31,11 @@ class diaryCard extends StatelessWidget {
           builder: (context) => ListTile(
             onTap: () {},
             title: Text(diary.name),
-            trailing: const playButton(
+            trailing: playButton(
               initState: false,
               offText: '듣기',
               onText: '중단',
+              fileUrl: diary.fileName,
             ),
           ),
         ));

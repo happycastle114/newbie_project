@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:newbie_project/board.dart';
+import 'package:newbie_project/routerPage.dart';
 import './widgets/login.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import './calendar.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => Login(),
         '/calendar': (context) => CalendarWidget(),
         '/recordVoice': (context) => RecordVoice(),
+        '/board': (context) => Board(),
+        '/routerPage': (context) => routerPage()
       },
     );
   }

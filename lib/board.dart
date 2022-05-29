@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:newbie_project/models/post.dart';
 import 'package:newbie_project/utils/getPost.dart';
+import 'package:newbie_project/widgets/BottomNavigator.dart';
 import 'package:newbie_project/widgets/postCard.dart';
 
 class Board extends HookWidget {

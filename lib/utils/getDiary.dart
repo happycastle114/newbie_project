@@ -18,7 +18,6 @@ Future<List<Diary>> getDiary(String userId) async {
       .then((snapshot) {
     List<Diary> diaries = [];
     for (Map<String, dynamic> diary in snapshot.data()?['diaries']) {
-      print("다이어리를 하나 가져옴!");
       diaries.add(Diary.fromMap(diary));
     }
 
@@ -37,7 +36,9 @@ Future<void> addDiary(String userId, Diary diary) {
 
 Future<void> removeDiary(String userId, Diary diary) {
   return getDiary(userId).then((value) {
-    value.remove(diary);
+    value.removeWhere((d) {
+      return (d.id == diary.id);
+    });
     FirebaseFirestore.instance.collection('user').doc(userId).set({
       'diaries': value.map((Diary diary) => diary.toMap()).toList(),
     });

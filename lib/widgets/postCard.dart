@@ -29,8 +29,12 @@ class PostCard extends StatelessWidget {
           builder: (context) => ListTile(
             onTap: () {},
             title: Text(post.name),
-            trailing:
-                const playButton(initState: false, offText: '듣기', onText: '중단'),
+            trailing: playButton(
+              initState: false,
+              offText: '듣기',
+              onText: '중단',
+              fileUrl: post.fileName,
+            ),
           ),
         ));
   }

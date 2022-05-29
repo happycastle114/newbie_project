@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:newbie_project/utils/UserId.dart';
 import 'package:uuid/uuid.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +11,9 @@ import 'package:newbie_project/utils/storage.dart';
 import 'package:record/record.dart';
 
 class ScreenArguments {
-  final String userId;
   final DateTime dateTime;
   final ValueNotifier<bool> isSuccessful;
-  ScreenArguments(
-      {required this.userId,
-      required this.dateTime,
-      required this.isSuccessful});
+  ScreenArguments({required this.dateTime, required this.isSuccessful});
 }
 
 class RecordVoice extends HookWidget {
@@ -32,7 +29,6 @@ class RecordVoice extends HookWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     final args = ScreenArguments(
-        userId: arg['userId'] as String,
         dateTime: arg['dateTime'] as DateTime,
         isSuccessful: arg['isSuccessful'] as ValueNotifier<bool>);
 
@@ -111,7 +107,7 @@ class RecordVoice extends HookWidget {
                     var uuid = Uuid();
                     print("Plus Button Clicked!");
                     await addDiary(
-                        args.userId,
+                        UserId().userId as String,
                         Diary(
                             id: uuid.v1(),
                             date: args.dateTime,
