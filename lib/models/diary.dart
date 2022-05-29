@@ -26,7 +26,7 @@ class Diary {
   Diary.fromMap(Map<String, dynamic>? map)
       : id = map?['id'],
         name = map?['name'],
-        date = DateTime.parse(map?['date']),
+        date = DateTime.parse(map?['date'].toDate().toString() as String),
         fileName = map?['fileName'];
 
   Diary.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot)
