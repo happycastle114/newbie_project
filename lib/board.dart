@@ -21,10 +21,8 @@ class Board extends HookWidget {
   Widget build(BuildContext context) {
     final _postList = useState<List<Post>>([]);
 
-    final PostDatabase _postDatabase = PostDatabase();
-
     useEffect(() {
-      _postDatabase.get().then((value) {
+      PostDatabase().get().then((value) {
         _postList.value = value;
       });
       return;
@@ -32,9 +30,7 @@ class Board extends HookWidget {
 
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        title: Text('Board'),
-      ),
+      backgroundColor: Colors.white70,
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: _listBuilder(_postList.value),

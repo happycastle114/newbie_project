@@ -1,5 +1,7 @@
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:newbie_project/models/post.dart';
+import 'package:newbie_project/utils/UserId.dart';
 import 'package:newbie_project/widgets/playButton.dart';
 import 'package:flutter/material.dart';
 
@@ -12,29 +14,47 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-        endActionPane: ActionPane(
-          motion: const DrawerMotion(),
-          children: [
-            SlidableAction(
-              autoClose: true,
-              label: '삭제',
-              backgroundColor: Colors.red,
-              icon: Icons.delete,
-              onPressed: (context) => onDelete(post.id),
-            )
-          ],
-        ),
-        child: Builder(
-          builder: (context) => ListTile(
-            onTap: () {},
-            title: Text(post.name),
-            trailing: playButton(
-              initState: false,
-              offText: '듣기',
-              onText: '중단',
-              fileUrl: post.fileName,
-            ),
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                  ),
+                  Text(
+                    post.name,
+                    textAlign: TextAlign.center,
+                  ),
+                  (UserId().userId == post.writer
+                      ? IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.delete, color: Colors.red))
+                      : Padding(
+                          padding: EdgeInsets.all(10),
+                        ))
+                ],
+              ),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("익명"),
+                  Padding(padding: EdgeInsets.all(10)),
+                  Text(post.date.toString().split(" ").first)
+                ],
+              ),
+              SizedBox(height: 15),
+              playButton(
+                  initState: false,
+                  offText: "재생",
+                  onText: "정지",
+                  fileUrl: post.fileName)
+            ],
           ),
         ));
   }

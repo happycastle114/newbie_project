@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:newbie_project/models/diary.dart';
 
 class Post {
-  final String postId;
   final String writer;
   final String name;
   final DateTime date;
@@ -9,8 +9,7 @@ class Post {
   final String id;
 
   Post(
-      {required this.postId,
-      required this.writer,
+      {required this.writer,
       required this.id,
       required this.name,
       required this.date,
@@ -22,19 +21,24 @@ class Post {
       'name': name,
       'date': date,
       'fileName': fileName,
-      'postId': postId,
       'writer': writer,
     };
   }
 
   Post.fromMap(Map<String, dynamic>? map)
-      : postId = map?['postId'],
-        writer = map?['writer'],
+      : writer = map?['writer'],
         id = map?['id'],
         name = map?['name'],
-        date = DateTime.parse(map?['date']),
+        date = DateTime.parse(map?['date'].toDate().toString() as String),
         fileName = map?['fileName'];
 
   Post.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot)
       : this.fromMap(snapshot.data());
+
+  Post.fromDiary(String userId, Diary diary)
+      : writer = userId,
+        id = diary.id,
+        name = diary.name,
+        date = diary.date,
+        fileName = diary.fileName;
 }

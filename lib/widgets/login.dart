@@ -61,10 +61,9 @@ class Login extends HookWidget {
     UserId().get().then((value) {
       if (value) {
         Navigator.pushNamed(context, '/routerPage', arguments: {});
+      } else {
+        isLoading.value = true;
       }
-
-      // TODO : 중간에 화면 사사삭 넘어가는 이유 알아내기
-      isLoading.value = true;
     });
 
     return !isLoading.value

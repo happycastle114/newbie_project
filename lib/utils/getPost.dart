@@ -16,35 +16,35 @@ class PostDatabase {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<List<Post>> get() {
-    return _db
-        .collection('users')
-        .doc('post')
-        .collection('diaries')
-        .get()
-        .then((snapshot) {
+    return _db.collection('user').doc('post').get().then((snapshot) {
       List<Post> diaries = [];
-      for (QueryDocumentSnapshot<Map<String, dynamic>> snap in snapshot.docs) {
-        diaries.add(Post.fromSnapshot(snap));
+      for (Map<String, dynamic> snap in snapshot.data()?['diaries']) {
+        print("POST 추가됨");
+        diaries.add(Post.fromMap(snap));
       }
 
       return diaries;
     });
   }
 
-  Future<void> add(Post diary) {
+  Future<bool> add(Post post) {
     return _instance.get().then((value) {
-      value.add(diary);
-      _db.doc("post").set({
-        'diaries': value,
+      if (value.where((element) => element.id == post.id).isNotEmpty) {
+        return false;
+      }
+      value.add(post);
+      _db.collection('user').doc("post").set({
+        'diaries': value.map((e) => e.toMap()).toList(),
       });
+      return true;
     });
   }
 
-  Future<void> remove(Post diary) {
+  Future<void> remove(Post post) {
     return _instance.get().then((value) {
-      value.remove(diary);
-      _db.doc("post").set({
-        'diaries': value,
+      value.removeWhere((p) => post.id == p.id);
+      _db.collection('user').doc("post").set({
+        'diaries': value.map((e) => e.toMap()).toList(),
       });
     });
   }
