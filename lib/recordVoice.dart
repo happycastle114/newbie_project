@@ -61,6 +61,7 @@ class RecordVoice extends HookWidget {
               ),
             ),
             ElevatedButton(
+              style: ButtonStyle(),
               child: Text(isRecord.value ? 'Stop' : 'Record'),
               onPressed: () async {
                 if (await record.isRecording()) {

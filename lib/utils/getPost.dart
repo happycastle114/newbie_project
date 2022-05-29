@@ -42,6 +42,7 @@ class PostDatabase {
 
   Future<void> remove(Post post) {
     return _instance.get().then((value) {
+      print("REMOVE CALLED!");
       value.removeWhere((p) => post.id == p.id);
       _db.collection('user').doc("post").set({
         'diaries': value.map((e) => e.toMap()).toList(),
