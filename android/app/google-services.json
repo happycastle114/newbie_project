@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "512604041098",
+    "project_id": "voice-diary-ca43b",
+    "storage_bucket": "voice-diary-ca43b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512604041098:android:5919e81648da4d0bb3a273",
+        "android_client_info": {
+          "package_name": "com.example.newbie_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512604041098-uf3n8u890q5jusl7g0pvhp125k0gmotl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSST1d2Wgji9pSAsIdEdK6X-iERe6VsgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512604041098-uf3n8u890q5jusl7g0pvhp125k0gmotl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "512604041098-7qbmgvv1ghsr31v7aab9cjbgc112tgjk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.happycastle.voicediary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

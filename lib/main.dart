@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
@@ -5,9 +6,14 @@ import './widgets/login.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import './calendar.dart';
 import './recordVoice.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   KakaoSdk.init(nativeAppKey: "dfa83a5ebbab2f42b327dcaa6523226b");
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions
+          .currentPlatform); // .then((_) => print("Firebase initialized"));
   initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
@@ -22,7 +28,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: RecordVoice(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Login(),
+        '/calendar': (context) => CalendarWidget(),
+        '/recordVoice': (context) => RecordVoice(),
+      },
     );
   }
 }

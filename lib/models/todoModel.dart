@@ -11,12 +11,11 @@ class Todo {
     this.complete,
   });
 
-  factory Todo.fromJson(Map<String, dynamic> json) => Todo(
-        id: json["id"],
-        todo: json["todo"],
-        type: json["type"],
-        complete: json["complete"],
-      );
+  Todo.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        todo = json['todo'],
+        type = json['type'],
+        complete = json['complete'];
 
   Map<String, dynamic> toJson() {
     return {
