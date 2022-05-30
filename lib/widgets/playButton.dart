@@ -24,6 +24,14 @@ class playButton extends HookWidget {
     final _isRecording = useState<bool>(false);
     final audioPlayer = useState(AudioPlayer());
 
+    useEffect(() {
+      print("EFFECT 실행");
+      audioPlayer.value.onPlayerCompletion.listen((event) {
+        print("오디오 플레이 완료");
+        _isRecording.value = false;
+      });
+    }, []);
+
     return TextButton(
       onPressed: () async {
         if (_isRecording.value) {

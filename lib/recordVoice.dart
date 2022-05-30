@@ -48,8 +48,10 @@ class RecordVoice extends HookWidget {
       //   print('$s');
       // });
 
-      audioPlayer.value.onPlayerCompletion
-          .listen((event) => {print("오디오 플레이 완료")});
+      audioPlayer.value.onPlayerCompletion.listen((event) {
+        print("오디오 플레이 완료");
+        isPlay.value = PlayerState.COMPLETED;
+      });
     }, []);
 
     return Container(
@@ -60,11 +62,11 @@ class RecordVoice extends HookWidget {
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30))),
             child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: SafeArea(
                   child: Column(
                     children: [
@@ -75,19 +77,19 @@ class RecordVoice extends HookWidget {
                           border: OutlineInputBorder(),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
                           "선택한 날짜 : ${dateTime.toString().split(" ").first}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: 'NanumSquare', fontSize: 15),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: Text(
+                        child: const Text(
                           "목소리 녹음하기",
                           style: TextStyle(
                               fontFamily: 'NanumSquare', fontSize: 15),
@@ -125,7 +127,7 @@ class RecordVoice extends HookWidget {
                       SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: Text(
+                        child: const Text(
                           "녹음한 목소리 들어보기",
                           style: TextStyle(
                               fontFamily: 'NanumSquare', fontSize: 15),
@@ -176,7 +178,8 @@ class RecordVoice extends HookWidget {
                           },
                           child: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              child: Text(textAlign: TextAlign.center, "저장하기")))
+                              child: const Text(
+                                  textAlign: TextAlign.center, "저장하기")))
                     ],
                   ),
                 ))));

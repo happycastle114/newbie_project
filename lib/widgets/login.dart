@@ -81,29 +81,31 @@ class Login extends HookWidget {
                     SizedBox(height: MediaQuery.of(context).size.width * 0.3),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: Text("음성 일기",
+                      child: const Text("음성 일기",
                           style: TextStyle(
                               fontFamily: 'NanumSquare',
                               fontSize: 55,
                               fontWeight: FontWeight.w700)),
                     ),
-                    Text(
+                    const SizedBox(height: 15),
+                    const Text(
                       "글이 아닌 목소리로 기록하는 일기장",
                       style: TextStyle(fontSize: 20, fontFamily: 'NanumSquare'),
                     ),
                   ],
                 )),
-                Text(
+                const Text(
                   "서비스를 이용하시려면 아래 버튼을 눌러 로그인 해주세요.",
                   style: TextStyle(fontSize: 15, fontFamily: 'NanumSquare'),
                 ),
+                SizedBox(height: 10),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: CupertinoButton(
                     onPressed: () => signInWithKakao(context),
                     color: Colors.yellow,
-                    child: Text('카카오톡 로그인',
-                        style: const TextStyle(
+                    child: const Text('카카오톡 로그인',
+                        style: TextStyle(
                           fontSize: 15,
                           color: Colors.black87,
                         )),
