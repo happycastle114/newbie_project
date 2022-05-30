@@ -27,14 +27,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Voice Diary',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme: ThemeData(primarySwatch: Colors.green),
       initialRoute: '/',
       routes: {
         '/': (context) => Login(),
         '/calendar': (context) => CalendarWidget(),
-        '/recordVoice': (context) => RecordVoice(),
+        // '/recordVoice': (context) => RecordVoice(),
         '/board': (context) => Board(),
         '/routerPage': (context) => routerPage()
       },

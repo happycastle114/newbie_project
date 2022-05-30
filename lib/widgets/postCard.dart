@@ -38,7 +38,7 @@ class PostCard extends StatelessWidget {
                               fontFamily: 'NanumSquare',
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
-                      (UserId().userId == post.writer
+                      (UserId().userId == post.writer // 자신의 게시물만 지울 수 있도록
                           ? IconButton(
                               onPressed: () => onDelete(post),
                               icon: const Icon(Icons.delete, color: Colors.red))

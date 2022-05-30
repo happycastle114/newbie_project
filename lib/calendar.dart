@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:newbie_project/models/diary.dart';
+import 'package:newbie_project/recordVoice.dart';
 import 'package:newbie_project/utils/UserId.dart';
 import 'package:newbie_project/utils/getDiary.dart';
 import 'package:newbie_project/widgets/BottomNavigator.dart';
@@ -54,12 +55,20 @@ class CalendarWidget extends HookWidget {
     // TODO: ShowBottomSheet 사용해보기
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-            onPressed: () => {
-                  Navigator.pushNamed(context, '/recordVoice', arguments: {
-                    'dateTime': _selectedDay.value,
-                    'isSuccessful': _isSuccessful
-                  })
-                },
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return RecordVoice(
+                      dateTime: _selectedDay.value,
+                      isSuccessful: _isSuccessful,
+                    );
+                  });
+              // Navigator.pushNamed(context, '/recordVoice', arguments: {
+              //   'dateTime': _selectedDay.value,
+              //   'isSuccessful': _isSuccessful
+              // });
+            },
             tooltip: 'Add Diary',
             child: const Icon(Icons.add)),
         body: SafeArea(
