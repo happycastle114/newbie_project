@@ -63,7 +63,12 @@ class Board extends HookWidget {
                         ],
                       ))),
               Expanded(
-                child: _listBuilder(_postList),
+                child: RefreshIndicator(
+                  onRefresh: () => PostDatabase().get().then((value) {
+                    _postList.value = value;
+                  }),
+                  child: _listBuilder(_postList),
+                ),
               )
             ],
           )),

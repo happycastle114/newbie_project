@@ -78,21 +78,33 @@ class CalendarWidget extends HookWidget {
                 padding: EdgeInsets.all(30),
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("음성 일기",
-                            style: TextStyle(
-                                fontFamily: 'NanumSquare',
-                                fontSize: 35,
-                                fontWeight: FontWeight.w700)),
-                        Text(
-                          "목소리로 오늘 하루를 기록해요 :)",
-                          style: TextStyle(
-                              fontSize: 15, fontFamily: 'NanumSquare'),
-                        )
-                      ],
-                    ))),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("음성 일기",
+                                  style: TextStyle(
+                                      fontFamily: 'NanumSquare',
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w700)),
+                              Text(
+                                "목소리로 오늘 하루를 기록해요 :)",
+                                style: TextStyle(
+                                    fontSize: 15, fontFamily: 'NanumSquare'),
+                              )
+                            ],
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                UserId().remove();
+                                Navigator.popUntil(
+                                    context, (route) => !route.isFirst);
+                                Navigator.pushNamed(context, "/");
+                              },
+                              icon: Icon(Icons.logout))
+                        ]))),
             TableCalendar(
               eventLoader: (day) {
                 for (Diary diary in diaries.value) {

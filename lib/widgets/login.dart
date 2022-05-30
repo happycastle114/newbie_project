@@ -69,27 +69,48 @@ class Login extends HookWidget {
     return !isLoading.value
         ? Container()
         : Scaffold(
-            appBar: AppBar(
-              title: Text('Login'),
-            ),
             body: SafeArea(
-              minimum: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: CupertinoButton(
-                      onPressed: () => signInWithKakao(context),
-                      color: Colors.yellow,
-                      child: Text('카카오톡 로그인',
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.black87,
-                          )),
+            minimum: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.3),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text("음성 일기",
+                          style: TextStyle(
+                              fontFamily: 'NanumSquare',
+                              fontSize: 55,
+                              fontWeight: FontWeight.w700)),
                     ),
+                    Text(
+                      "글이 아닌 목소리로 기록하는 일기장",
+                      style: TextStyle(fontSize: 20, fontFamily: 'NanumSquare'),
+                    ),
+                  ],
+                )),
+                Text(
+                  "서비스를 이용하시려면 아래 버튼을 눌러 로그인 해주세요.",
+                  style: TextStyle(fontSize: 15, fontFamily: 'NanumSquare'),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: CupertinoButton(
+                    onPressed: () => signInWithKakao(context),
+                    color: Colors.yellow,
+                    child: Text('카카오톡 로그인',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black87,
+                        )),
                   ),
-                ],
-              ),
-            ));
+                ),
+              ],
+            ),
+          ));
   }
 }
